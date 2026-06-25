@@ -532,6 +532,16 @@
       z-index: 2;
       pointer-events: none;
       letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .gallery-flag {
+      width: 18px;
+      height: 13px;
+      object-fit: cover;
+      border-radius: 2px;
+      flex-shrink: 0;
     }
     .gallery-placeholder {
       width: 100%; height: 100%;
@@ -929,27 +939,27 @@
         <div class="gallery-item reveal">
           <img src="img/foto-roma.jpg" alt="Roma, Itália"/>
           <div class="gallery-overlay"></div>
-          <div class="gallery-label">Roma</div>
+          <div class="gallery-label"><img class="gallery-flag" src="img/flag-italia.webp" alt="Itália"/>Roma</div>
         </div>
         <div class="gallery-item reveal reveal-delay-1">
           <img src="img/foto-como.jpeg" alt="Lago di Como, Itália"/>
           <div class="gallery-overlay"></div>
-          <div class="gallery-label">Lago di Como</div>
+          <div class="gallery-label"><img class="gallery-flag" src="img/flag-italia.webp" alt="Itália"/>Lago di Como</div>
         </div>
         <div class="gallery-item reveal reveal-delay-2">
           <img src="img/foto-milao.jpeg" alt="Milão, Itália"/>
           <div class="gallery-overlay"></div>
-          <div class="gallery-label">Milão</div>
+          <div class="gallery-label"><img class="gallery-flag" src="img/flag-italia.webp" alt="Itália"/>Milão</div>
         </div>
         <div class="gallery-item reveal reveal-delay-3">
           <img src="img/foto-londres.jpeg" alt="Londres, Reino Unido"/>
           <div class="gallery-overlay"></div>
-          <div class="gallery-label">Londres</div>
+          <div class="gallery-label"><img class="gallery-flag" src="img/flag-inglaterra.png" alt="Inglaterra"/>Londres</div>
         </div>
         <div class="gallery-item reveal reveal-delay-2">
           <img src="img/foto-madrid.jpeg" alt="Madrid, Espanha"/>
           <div class="gallery-overlay"></div>
-          <div class="gallery-label">Madrid</div>
+          <div class="gallery-label"><img class="gallery-flag" src="img/flag-espanha.jpg" alt="Espanha"/>Madrid</div>
         </div>
       </div>
     </div>
