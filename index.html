@@ -519,6 +519,20 @@
       transition: opacity 0.3s;
     }
     .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-label {
+      position: absolute;
+      bottom: 0.75rem;
+      left: 0.75rem;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      z-index: 2;
+      pointer-events: none;
+      letter-spacing: 0.02em;
+    }
     .gallery-placeholder {
       width: 100%; height: 100%;
       min-height: 180px;
@@ -914,22 +928,27 @@
         <div class="gallery-item reveal">
           <img src="img/foto-roma.jpg" alt="Roma, Itália"/>
           <div class="gallery-overlay"></div>
+          <div class="gallery-label">Roma</div>
         </div>
         <div class="gallery-item reveal reveal-delay-1">
-          <img src="img/foto-como.jpeg" alt="Lago de Como, Itália"/>
+          <img src="img/foto-como.jpeg" alt="Lago di Como, Itália"/>
           <div class="gallery-overlay"></div>
+          <div class="gallery-label">Lago di Como</div>
         </div>
         <div class="gallery-item reveal reveal-delay-2">
           <img src="img/foto-milao.jpeg" alt="Milão, Itália"/>
           <div class="gallery-overlay"></div>
+          <div class="gallery-label">Milão</div>
         </div>
         <div class="gallery-item reveal reveal-delay-3">
           <img src="img/foto-londres.jpeg" alt="Londres, Reino Unido"/>
           <div class="gallery-overlay"></div>
+          <div class="gallery-label">Londres</div>
         </div>
         <div class="gallery-item reveal reveal-delay-2">
           <img src="img/foto-madrid.jpeg" alt="Madrid, Espanha"/>
           <div class="gallery-overlay"></div>
+          <div class="gallery-label">Madrid</div>
         </div>
       </div>
     </div>
