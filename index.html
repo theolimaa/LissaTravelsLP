@@ -1,0 +1,1037 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lissa Travels · Assessoria de Milhas</title>
+  <meta name="description" content="Viaje mais, pague menos. Assessoria de milhas personalizada com a Lissa Travels." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:     #00204E;
+      --navy2:    #001533;
+      --gold:     #B59459;
+      --gold-lt:  #d4b07a;
+      --gold-bg:  rgba(181,148,89,0.08);
+      --gold-bd:  rgba(181,148,89,0.2);
+      --green:    #4e9a72;
+      --green-dk: #3a7a58;
+      --bg:       #ffffff;
+      --bg2:      #f7f8fc;
+      --bg3:      #eef1f8;
+      --text:     #00204E;
+      --muted:    #5a6a85;
+      --subtle:   #9aaabb;
+    }
+
+    html { scroll-behavior: smooth; font-size: 16px; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    h1, h2, h3, h4, h5 {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.15;
+      letter-spacing: -0.02em;
+      color: var(--navy);
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.1rem 2.5rem;
+      background: transparent;
+      transition: background 0.4s, box-shadow 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 1px 20px rgba(0,32,78,0.08);
+    }
+    .nav-logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--navy);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      letter-spacing: -0.01em;
+    }
+    .nav-logo span { color: var(--gold); }
+    .nav-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      background: var(--green);
+      color: #fff;
+      padding: 0.55rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.84rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .nav-cta:hover { background: var(--green-dk); transform: translateY(-1px); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 50%, #fdf8f0 100%);
+      overflow: hidden;
+    }
+
+    /* Soft blobs */
+    .hero-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .blob-1 {
+      width: 500px; height: 500px;
+      top: -150px; left: -100px;
+      background: rgba(181,148,89,0.12);
+    }
+    .blob-2 {
+      width: 400px; height: 400px;
+      bottom: -100px; right: -80px;
+      background: rgba(78,154,114,0.10);
+    }
+    .blob-3 {
+      width: 300px; height: 300px;
+      top: 30%; left: 40%;
+      background: rgba(0,32,78,0.04);
+    }
+
+    /* Airplane animations */
+    .flight-path {
+      position: absolute;
+      top: 18%;
+      left: -5%;
+      width: 110%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .flight-trail {
+      position: absolute;
+      top: 0; left: 0;
+      height: 1px;
+      width: 0%;
+      background: linear-gradient(90deg, transparent, rgba(181,148,89,0.5), rgba(181,148,89,0.15), transparent);
+      animation: trailGrow 9s ease-out infinite;
+      animation-delay: 0.3s;
+    }
+    .airplane {
+      position: absolute;
+      top: -14px; left: -50px;
+      animation: fly 9s ease-in-out infinite;
+      filter: drop-shadow(0 2px 6px rgba(181,148,89,0.35));
+    }
+    .flight-path-2 {
+      position: absolute;
+      top: 72%;
+      left: -5%;
+      width: 110%;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .flight-trail-2 {
+      position: absolute;
+      top: 0; left: 0;
+      height: 1px;
+      width: 0%;
+      background: linear-gradient(90deg, transparent, rgba(78,154,114,0.4), rgba(78,154,114,0.1), transparent);
+      animation: trailGrow 13s ease-out infinite;
+      animation-delay: 5s;
+    }
+    .airplane-2 {
+      position: absolute;
+      top: -10px; left: -35px;
+      animation: fly 13s ease-in-out infinite;
+      animation-delay: 5s;
+      opacity: 0;
+      filter: drop-shadow(0 2px 4px rgba(78,154,114,0.3));
+    }
+    @keyframes fly {
+      0%   { left: -50px; opacity: 0; }
+      5%   { opacity: 1; }
+      93%  { opacity: 1; }
+      100% { left: calc(100% + 50px); opacity: 0; }
+    }
+    @keyframes trailGrow {
+      0%   { width: 0%; opacity: 0; }
+      5%   { opacity: 1; }
+      93%  { width: 100%; opacity: 1; }
+      100% { width: 100%; opacity: 0; }
+    }
+
+    /* Hero grid */
+    .hero-inner {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8rem 2.5rem 5rem;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--gold-bg);
+      border: 1px solid var(--gold-bd);
+      color: var(--gold);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.32rem 0.85rem;
+      border-radius: 50px;
+      margin-bottom: 1.4rem;
+      animation: fadeUp 0.7s ease both;
+    }
+    .hero-headline {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+      color: var(--navy);
+      margin-bottom: 1.3rem;
+      animation: fadeUp 0.7s ease 0.08s both;
+    }
+    .hero-headline span { color: var(--gold); }
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 440px;
+      margin-bottom: 2.2rem;
+      animation: fadeUp 0.7s ease 0.16s both;
+    }
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      animation: fadeUp 0.7s ease 0.24s both;
+    }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--green);
+      color: #fff;
+      padding: 0.85rem 1.9rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 4px 20px rgba(78,154,114,0.35);
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-primary:hover { background: var(--green-dk); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(78,154,114,0.4); }
+    .btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--navy);
+      padding: 0.85rem 1.75rem;
+      border-radius: 50px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      border: 1.5px solid rgba(0,32,78,0.18);
+      transition: all 0.25s;
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-ghost:hover { border-color: rgba(0,32,78,0.4); background: rgba(0,32,78,0.04); }
+
+    /* Hero photo */
+    .hero-photo-wrap { position: relative; animation: fadeUp 0.7s ease 0.12s both; }
+    .hero-photo-frame {
+      position: relative;
+      border-radius: 28px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      max-height: 580px;
+      box-shadow: 0 24px 64px rgba(0,32,78,0.16), 0 0 0 1px rgba(0,32,78,0.06);
+    }
+    .hero-photo-frame img { width: 100%; height: 100%; object-fit: cover; object-position: center top; }
+    .hero-photo-frame::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, transparent 55%, rgba(0,32,78,0.3) 100%);
+    }
+
+    /* Float cards */
+    .float-card {
+      position: absolute;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(0,32,78,0.08);
+      border-radius: 16px;
+      padding: 0.85rem 1.1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      box-shadow: 0 8px 32px rgba(0,32,78,0.12);
+      z-index: 5;
+    }
+    .float-card-tl { top: -16px; left: -28px; animation: floatY 3s ease-in-out infinite; }
+    .float-card-br { bottom: -16px; right: -28px; animation: floatY 3.5s ease-in-out infinite 0.4s; }
+    .float-icon {
+      width: 38px; height: 38px;
+      border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.15rem;
+    }
+    .float-icon-gold  { background: rgba(181,148,89,0.12); }
+    .float-icon-green { background: rgba(78,154,114,0.12); }
+    .float-label { font-size: 0.68rem; color: var(--muted); font-weight: 500; }
+    .float-value { font-size: 0.85rem; font-weight: 700; color: var(--navy); font-family: 'Poppins', sans-serif; }
+    @keyframes floatY {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* ── NUMBERS STRIP ── */
+    .numbers-strip {
+      background: var(--navy);
+      padding: 2rem 2.5rem;
+    }
+    .numbers-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .number-item { text-align: center; }
+    .number-val {
+      font-family: 'Poppins', sans-serif;
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--gold);
+      line-height: 1;
+    }
+    .number-label { font-size: 0.8rem; color: rgba(255,255,255,0.6); margin-top: 0.3rem; font-weight: 400; }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 2.5rem; }
+    .section-inner { max-width: 1100px; margin: 0 auto; }
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+      font-family: 'Poppins', sans-serif;
+    }
+    .section-tag::before {
+      content: '';
+      display: inline-block;
+      width: 2rem;
+      height: 2px;
+      background: var(--gold);
+      border-radius: 2px;
+    }
+    .section-title {
+      font-size: clamp(1.9rem, 3vw, 2.75rem);
+      font-weight: 800;
+      margin-bottom: 1.1rem;
+      letter-spacing: -0.03em;
+    }
+    .section-title span { color: var(--gold); }
+    .section-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.75;
+      max-width: 560px;
+    }
+
+    /* ── ABOUT ── */
+    .about { background: var(--bg2); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+    .about-photos { position: relative; }
+    .about-photo-main {
+      border-radius: 24px;
+      overflow: hidden;
+      aspect-ratio: 4/5;
+      box-shadow: 0 16px 48px rgba(0,32,78,0.14);
+    }
+    .about-photo-main img { width: 100%; height: 100%; object-fit: cover; }
+    .photo-placeholder {
+      width: 100%; height: 100%;
+      background: linear-gradient(135deg, #eef1f8, #f7f8fc);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      color: var(--subtle);
+      font-size: 0.8rem;
+      text-align: center;
+    }
+    .about-photo-accent {
+      position: absolute;
+      bottom: -24px; right: -24px;
+      width: 52%;
+      border-radius: 18px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      border: 4px solid var(--bg2);
+      box-shadow: 0 10px 30px rgba(0,32,78,0.14);
+    }
+    .about-text p { font-size: 0.98rem; color: var(--muted); line-height: 1.85; margin-bottom: 1rem; }
+    .highlights { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.75rem; }
+    .highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.92rem;
+      font-weight: 500;
+      color: var(--navy);
+    }
+    .highlight-dot {
+      flex-shrink: 0;
+      margin-top: 0.35rem;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--gold);
+    }
+
+    /* ── HOW IT WORKS ── */
+    .how { background: var(--bg); }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-top: 3.5rem;
+    }
+    .step-card {
+      background: var(--bg2);
+      border: 1px solid rgba(0,32,78,0.07);
+      border-radius: 22px;
+      padding: 2rem 1.75rem;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .step-card:hover { transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,32,78,0.1); }
+    .step-number {
+      font-family: 'Poppins', sans-serif;
+      font-size: 5rem;
+      font-weight: 800;
+      color: rgba(0,32,78,0.05);
+      line-height: 1;
+      position: absolute;
+      top: 0.5rem; right: 1rem;
+    }
+    .step-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      background: var(--gold-bg);
+      border: 1px solid var(--gold-bd);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .step-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.6rem; }
+    .step-desc { font-size: 0.9rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── SERVICES ── */
+    .services { background: var(--bg3); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.25rem;
+      margin-top: 3.5rem;
+    }
+    .service-card {
+      background: var(--bg);
+      border: 1px solid rgba(0,32,78,0.07);
+      border-radius: 20px;
+      padding: 1.75rem;
+      transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    }
+    .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,32,78,0.09); border-color: var(--gold-bd); }
+    .service-icon { font-size: 1.9rem; margin-bottom: 1rem; }
+    .service-title { font-size: 0.95rem; font-weight: 700; margin-bottom: 0.45rem; font-family: 'Poppins', sans-serif; }
+    .service-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.7; }
+
+    /* ── GALLERY ── */
+    .gallery { background: var(--bg2); }
+    .gallery-heading { text-align: center; margin-bottom: 3rem; }
+    .gallery-heading .section-sub { margin: 0 auto; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+    }
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      position: relative;
+    }
+    .gallery-item:nth-child(1) { grid-column: span 2; grid-row: span 2; aspect-ratio: auto; }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(0,32,78,0.45) 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-placeholder {
+      width: 100%; height: 100%;
+      min-height: 180px;
+      background: linear-gradient(135deg, #eef1f8, #f0f3f8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      color: var(--subtle);
+      font-size: 0.78rem;
+      text-align: center;
+      border: 1.5px dashed rgba(0,32,78,0.1);
+      border-radius: 16px;
+    }
+
+    /* ── TESTIMONIALS ── */
+    .testimonials { background: var(--bg); }
+    .testimonials-heading { text-align: center; margin-bottom: 3rem; }
+    .testimonials-heading .section-sub { margin: 0 auto; }
+    .testi-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    .testi-card {
+      background: var(--bg2);
+      border: 1px solid rgba(0,32,78,0.07);
+      border-radius: 20px;
+      padding: 1.75rem;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .testi-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,32,78,0.08); }
+    .testi-stars { color: var(--gold); font-size: 0.85rem; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .testi-text { font-size: 0.93rem; color: var(--muted); line-height: 1.8; margin-bottom: 1.25rem; font-style: italic; }
+    .testi-author { display: flex; align-items: center; gap: 0.75rem; }
+    .testi-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--navy), #1a4a8a);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.95rem;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .testi-name { font-weight: 700; font-size: 0.88rem; font-family: 'Poppins', sans-serif; }
+    .testi-origin { font-size: 0.75rem; color: var(--muted); }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: var(--navy);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-final::before {
+      content: '';
+      position: absolute;
+      top: -200px; left: 50%;
+      transform: translateX(-50%);
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(181,148,89,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-final .section-title { color: #fff; }
+    .cta-final .section-title span { color: var(--gold); }
+    .cta-final .section-sub { color: rgba(255,255,255,0.65); margin: 0 auto 2.5rem; max-width: 480px; }
+    .cta-final .section-tag { color: var(--gold-lt); }
+    .cta-final .section-tag::before { background: var(--gold-lt); }
+    .whatsapp-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.7rem;
+      background: #25D366;
+      color: #fff;
+      padding: 1.05rem 2.4rem;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 0.25s;
+      box-shadow: 0 6px 28px rgba(37,211,102,0.35);
+      font-family: 'Poppins', sans-serif;
+    }
+    .whatsapp-btn:hover { background: #1dbb58; transform: translateY(-3px); box-shadow: 0 12px 40px rgba(37,211,102,0.45); }
+
+    /* ── FLOATING WHATSAPP ── */
+    .fab-whatsapp {
+      position: fixed;
+      bottom: 2rem; right: 2rem;
+      width: 60px; height: 60px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
+      text-decoration: none;
+      z-index: 999;
+      animation: pulse 2.5s ease-in-out infinite;
+      transition: transform 0.2s;
+    }
+    .fab-whatsapp:hover { transform: scale(1.1); }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 4px 20px rgba(37,211,102,0.4); }
+      50% { box-shadow: 0 4px 30px rgba(37,211,102,0.6), 0 0 0 8px rgba(37,211,102,0.1); }
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #030e1e;
+      padding: 2.5rem;
+      text-align: center;
+      color: rgba(255,255,255,0.45);
+      font-size: 0.82rem;
+    }
+    footer .foot-logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      margin-bottom: 0.5rem;
+    }
+    footer .foot-logo span { color: var(--gold); }
+
+    /* ── ANIMATIONS ── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .hero-inner { grid-template-columns: 1fr; gap: 3rem; }
+      .hero-photo-wrap { max-width: 380px; margin: 0 auto; }
+      .float-card-tl { display: none; }
+      .float-card-br { right: -8px; bottom: -8px; }
+      .about-grid { grid-template-columns: 1fr; }
+      .about-photos { max-width: 380px; margin: 0 auto; }
+      .steps-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .gallery-item:nth-child(1) { grid-column: span 2; }
+      .testi-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 600px) {
+      section { padding: 4rem 1.25rem; }
+      nav { padding: 1rem 1.25rem; }
+      .hero-inner { padding: 6.5rem 1.25rem 3rem; }
+      .services-grid { grid-template-columns: 1fr; }
+      .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-item:nth-child(1) { grid-column: span 1; }
+      .numbers-inner { flex-direction: column; align-items: center; gap: 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav id="navbar">
+    <div class="nav-logo">✈ Lissa <span>Travels</span></div>
+    <a href="https://wa.me/5511999999999?text=Olá%2C%20Lissa!%20Quero%20viajar%20mais%20gastando%20menos%20com%20milhas%20🛫"
+       class="nav-cta" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M5.33 20.944l.022-.014A10.972 10.972 0 0012 23c5.523 0 10-4.477 10-10S17.523 3 12 3 2 7.477 2 13c0 1.982.553 3.831 1.516 5.407l-.017.011L2 22l3.33-1.056z"/></svg>
+      Falar com a Lissa
+    </a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-blob blob-1"></div>
+    <div class="hero-blob blob-2"></div>
+    <div class="hero-blob blob-3"></div>
+
+    <div class="flight-path">
+      <div class="flight-trail"></div>
+      <div class="airplane">
+        <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
+          <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#B59459"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="flight-path-2">
+      <div class="flight-trail-2"></div>
+      <div class="airplane-2">
+        <svg width="30" height="30" viewBox="0 0 24 24" fill="none">
+          <path d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z" fill="#4e9a72"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="hero-inner">
+      <div>
+        <div class="hero-badge">✈ Assessoria de Milhas</div>
+        <h1 class="hero-headline">
+          Viaje o Mundo<br/>com <span>Até 96%</span><br/>de Desconto
+        </h1>
+        <p class="hero-sub">
+          Emito passagens aéreas com milhas próprias para você viajar mais pagando muito menos, sem precisar entender nada de milhas.
+        </p>
+        <div class="hero-actions">
+          <a href="https://wa.me/5511999999999?text=Olá%2C%20Lissa!%20Quero%20saber%20como%20viajar%20mais%20com%20milhas%20🛫"
+             class="btn-primary" target="_blank" rel="noopener">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M5.33 20.944l.022-.014A10.972 10.972 0 0012 23c5.523 0 10-4.477 10-10S17.523 3 12 3 2 7.477 2 13c0 1.982.553 3.831 1.516 5.407l-.017.011L2 22l3.33-1.056z"/></svg>
+            Quero Viajar com Milhas
+          </a>
+          <a href="#como-funciona" class="btn-ghost">Como funciona →</a>
+        </div>
+      </div>
+
+      <div class="hero-photo-wrap">
+        <div class="float-card float-card-tl">
+          <div class="float-icon float-icon-gold">✈️</div>
+          <div>
+            <div class="float-label">Última viagem</div>
+            <div class="float-value">Roma · Economia zero</div>
+          </div>
+        </div>
+        <div class="hero-photo-frame">
+          <img src="../Fotos para design/5f58a0cc-a218-4078-8099-7a32931fe769.JPG"
+               alt="Lissa em Roma, Itália" loading="eager"/>
+        </div>
+        <div class="float-card float-card-br">
+          <div class="float-icon float-icon-green">🏆</div>
+          <div>
+            <div class="float-label">Clientes satisfeitos</div>
+            <div class="float-value">+200 viagens realizadas</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUMBERS STRIP -->
+  <div class="numbers-strip">
+    <div class="numbers-inner">
+      <div class="number-item reveal">
+        <div class="number-val">200+</div>
+        <div class="number-label">Clientes atendidos</div>
+      </div>
+      <div class="number-item reveal reveal-delay-1">
+        <div class="number-val">R$500k+</div>
+        <div class="number-label">Economizados em passagens</div>
+      </div>
+      <div class="number-item reveal reveal-delay-2">
+        <div class="number-val">15+</div>
+        <div class="number-label">Países visitados</div>
+      </div>
+      <div class="number-item reveal reveal-delay-3">
+        <div class="number-val">96%</div>
+        <div class="number-label">Desconto máximo alcançado</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about">
+    <div class="section-inner">
+      <div class="about-grid">
+        <div class="about-photos reveal">
+          <div class="about-photo-main">
+            <div class="photo-placeholder">
+              <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <span style="padding:0 1rem">Adicionar foto da Lissa<br/>(converter HEIC → JPG)</span>
+            </div>
+          </div>
+          <div class="about-photo-accent">
+            <div class="photo-placeholder" style="min-height:120px; border-radius:0">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="about-text">
+          <div class="section-tag reveal">Sobre mim</div>
+          <h2 class="section-title reveal reveal-delay-1">
+            Apaixonada por viagens e por fazer você <span>viajar</span>
+          </h2>
+          <div class="reveal reveal-delay-2">
+            <p>Sou a Lissa, especialista em emissão de passagens com milhas. Já percorri mais de 15 países e aprendi que viajar bem não precisa custar uma fortuna. Você só precisa saber usar as ferramentas certas.</p>
+            <p>Com a minha assessoria, cuido de tudo: da busca da melhor rota à emissão com as minhas milhas, escolhendo as melhores companhias, datas e tarifas para a sua viagem dos sonhos.</p>
+          </div>
+          <div class="highlights reveal reveal-delay-3">
+            <div class="highlight-item"><div class="highlight-dot"></div>Especialista em Smiles, TudoAzul, Latam Pass e Livelo</div>
+            <div class="highlight-item"><div class="highlight-dot"></div>Resgates em Business Class e First Class</div>
+            <div class="highlight-item"><div class="highlight-dot"></div>Atendimento 100% personalizado via WhatsApp</div>
+            <div class="highlight-item"><div class="highlight-dot"></div>Milhas próprias estocadas para emissão imediata</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="how" id="como-funciona">
+    <div class="section-inner">
+      <div style="text-align:center; max-width:560px; margin:0 auto">
+        <div class="section-tag reveal">Processo</div>
+        <h2 class="section-title reveal reveal-delay-1">Como Funciona</h2>
+        <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">Em 3 passos simples você já tem a viagem dos sonhos planejada e com milhas aplicadas.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card reveal reveal-delay-1">
+          <div class="step-number">01</div>
+          <div class="step-icon">💬</div>
+          <div class="step-title">Me conta o seu sonho</div>
+          <p class="step-desc">Me diga para onde quer ir, quando e quantas pessoas. Sem compromisso, só uma conversa no WhatsApp.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-2">
+          <div class="step-number">02</div>
+          <div class="step-icon">🔍</div>
+          <div class="step-title">Encontro a melhor emissão</div>
+          <p class="step-desc">Pesquiso as melhores rotas, datas e companhias e emito as passagens usando minhas milhas estocadas.</p>
+        </div>
+        <div class="step-card reveal reveal-delay-3">
+          <div class="step-number">03</div>
+          <div class="step-icon">✈️</div>
+          <div class="step-title">Você embarca!</div>
+          <p class="step-desc">Cuido do resgate, emissão das passagens e de todos os detalhes. Você só precisa fazer as malas e aproveitar a viagem.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services">
+    <div class="section-inner">
+      <div style="text-align:center; max-width:560px; margin:0 auto">
+        <div class="section-tag reveal">Serviços</div>
+        <h2 class="section-title reveal reveal-delay-1">O que posso<br/>fazer por você</h2>
+      </div>
+      <div class="services-grid">
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">🎯</div>
+          <div class="service-title">Milhas Próprias</div>
+          <p class="service-desc">Tenho um estoque de milhas prontas para uso. Você não precisa ter milhas, cartão especial ou entender nada do assunto.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon">🛫</div>
+          <div class="service-title">Emissão de Passagens</div>
+          <p class="service-desc">Busco e emito passagens nacionais e internacionais usando milhas, nos melhores programas e tarifas.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon">💺</div>
+          <div class="service-title">Upgrade para Business</div>
+          <p class="service-desc">Voe na Business ou First Class usando milhas: conforto de luxo sem pagar preço de luxo.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-1">
+          <div class="service-icon">🗺️</div>
+          <div class="service-title">Planejamento de Viagem</div>
+          <p class="service-desc">Roteiros completos com hotéis, transfers e passeios, tudo integrado ao uso das suas milhas.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-2">
+          <div class="service-icon">🔄</div>
+          <div class="service-title">Melhores Rotas e Datas</div>
+          <p class="service-desc">Pesquiso as melhores combinações de rotas, escalas e datas para maximizar o uso das milhas na sua viagem.</p>
+        </div>
+        <div class="service-card reveal reveal-delay-3">
+          <div class="service-icon">📱</div>
+          <div class="service-title">Suporte Contínuo</div>
+          <p class="service-desc">Acompanhamento via WhatsApp durante toda a jornada, do planejamento ao retorno.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="gallery">
+    <div class="section-inner">
+      <div class="gallery-heading">
+        <div class="section-tag reveal" style="justify-content:center">Destinos</div>
+        <h2 class="section-title reveal reveal-delay-1">Todos os lugares que já<br/>visitei <span>com milhas</span></h2>
+        <p class="section-sub reveal reveal-delay-2">Cada viagem foi planejada com a mesma estratégia que uso para os meus clientes.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item reveal">
+          <img src="../Fotos para design/5f58a0cc-a218-4078-8099-7a32931fe769.JPG" alt="Roma, Itália - Coliseu"/>
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-1">
+          <div class="gallery-placeholder">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Destino 2</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <div class="gallery-placeholder">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Destino 3</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-3">
+          <div class="gallery-placeholder">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Destino 4</span>
+          </div>
+        </div>
+        <div class="gallery-item reveal reveal-delay-2">
+          <div class="gallery-placeholder">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+            <span>Destino 5</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials">
+    <div class="section-inner">
+      <div class="testimonials-heading">
+        <div class="section-tag reveal" style="justify-content:center">Depoimentos</div>
+        <h2 class="section-title reveal reveal-delay-1">O que dizem <span>meus clientes</span></h2>
+        <p class="section-sub reveal reveal-delay-2">Pessoas que já viajaram mais e gastaram menos com a minha assessoria.</p>
+      </div>
+      <div class="testi-grid">
+        <div class="testi-card reveal reveal-delay-1">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"A Lissa me ajudou a ir para Paris em Business Class usando milhas. Nunca imaginei que seria possível! Todo o processo foi super tranquilo e ela cuidou de tudo."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">A</div>
+            <div>
+              <div class="testi-name">Ana Paula M.</div>
+              <div class="testi-origin">🇫🇷 Paris, França</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-delay-2">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Foram 4 passagens para o Japão, ida e volta, praticamente de graça! Economizamos mais de R$18.000. A Lissa é incrível, recomendo demais!"</p>
+          <div class="testi-author">
+            <div class="testi-avatar">R</div>
+            <div>
+              <div class="testi-name">Ricardo & Família</div>
+              <div class="testi-origin">🇯🇵 Tóquio, Japão</div>
+            </div>
+          </div>
+        </div>
+        <div class="testi-card reveal reveal-delay-3">
+          <div class="testi-stars">★★★★★</div>
+          <p class="testi-text">"Já fiz 3 viagens com a Lissa! Ela conhece tudo sobre milhas e sempre encontra as melhores opções. Vale cada centavo da assessoria."</p>
+          <div class="testi-author">
+            <div class="testi-avatar">C</div>
+            <div>
+              <div class="testi-name">Carla S.</div>
+              <div class="testi-origin">🇮🇹 🇪🇸 🇵🇹 Europa x3</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <section class="cta-final">
+    <div class="section-inner" style="text-align:center">
+      <div class="section-tag reveal" style="justify-content:center">Vamos viajar?</div>
+      <h2 class="section-title reveal reveal-delay-1">
+        Sua próxima viagem<br/>começa <span>aqui</span>
+      </h2>
+      <p class="section-sub reveal reveal-delay-2">
+        Me manda uma mensagem no WhatsApp e vamos planejar juntos a viagem que você sempre sonhou, usando as minhas milhas.
+      </p>
+      <div class="reveal reveal-delay-3">
+        <a href="https://wa.me/5511999999999?text=Olá%2C%20Lissa!%20Quero%20saber%20como%20viajar%20mais%20com%20milhas%20e%20gastando%20menos%20%F0%9F%9B%AB"
+           class="whatsapp-btn" target="_blank" rel="noopener">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M5.33 20.944l.022-.014A10.972 10.972 0 0012 23c5.523 0 10-4.477 10-10S17.523 3 12 3 2 7.477 2 13c0 1.982.553 3.831 1.516 5.407l-.017.011L2 22l3.33-1.056z"/></svg>
+          Falar com a Lissa no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-logo">✈ Lissa <span>Travels</span></div>
+    <p>Assessoria de Milhas Personalizada · Atendimento via WhatsApp</p>
+    <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.5">© 2025 Lissa Travels · Todos os direitos reservados</p>
+  </footer>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/5511999999999?text=Olá%2C%20Lissa!%20Quero%20saber%20como%20viajar%20mais%20com%20milhas%20%F0%9F%9B%AB"
+     class="fab-whatsapp" target="_blank" rel="noopener" aria-label="WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+      <path d="M5.33 20.944l.022-.014A10.972 10.972 0 0012 23c5.523 0 10-4.477 10-10S17.523 3 12 3 2 7.477 2 13c0 1.982.553 3.831 1.516 5.407l-.017.011L2 22l3.33-1.056z"/>
+    </svg>
+  </a>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.1 });
+    reveals.forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
