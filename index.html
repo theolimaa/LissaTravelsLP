@@ -875,8 +875,8 @@
     .globe-container {
       position: relative;
       width: min(520px, 90vw);
+      height: min(520px, 90vw);
       margin: 3rem auto 0;
-      aspect-ratio: 1;
     }
     #globe-canvas {
       width: 100%; height: 100%;
@@ -899,6 +899,7 @@
       border-radius: 4px;
       pointer-events: none;
       overflow: hidden;
+      opacity: 0;
       box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(0,0,0,0.12);
       text-shadow: 0 1px 1px rgba(0,0,0,0.25);
       transition: opacity 0.3s, filter 0.3s;
@@ -1390,7 +1391,7 @@
   </a>
 
   <script type="module">
-    import createGlobe from 'https://esm.sh/cobe@0.6.3'
+    import createGlobe from 'https://esm.sh/cobe'
 
     const MARKERS = [
       { id: 'paris',   location: [48.86,   2.35], text: 'Paris',    color: '#B59459', rotate: -5 },
@@ -1435,24 +1436,32 @@
         const w = canvas.offsetWidth
         if (!w || globe) return
 
-        globe = createGlobe(canvas, {
-          devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
-          width: w, height: w,
-          phi: 0, theta: THETA,
-          dark: 0, diffuse: 1.5,
-          mapSamples: 16000, mapBrightness: 9,
-          baseColor: [1, 1, 1],
-          markerColor: [0.71, 0.58, 0.35],
-          glowColor: [0.94, 0.93, 0.91],
-          markerElevation: 0,
-          markers: MARKERS.map(m => ({ location: m.location, size: 0.035 })),
-        })
+        try {
+          globe = createGlobe(canvas, {
+            devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
+            width: w, height: w,
+            phi: 0, theta: THETA,
+            dark: 0, diffuse: 1.5,
+            mapSamples: 16000, mapBrightness: 9,
+            baseColor: [1, 1, 1],
+            markerColor: [0.71, 0.58, 0.35],
+            glowColor: [0.94, 0.93, 0.91],
+            markerElevation: 0,
+            markers: MARKERS.map(m => ({ location: m.location, size: 0.035 })),
+          })
+        } catch(e) {
+          console.error('Globe init error:', e)
+          return
+        }
 
+        let first = true
         function tick() {
           if (!isPaused) phi += SPEED
           const curPhi   = phi + phiOffset + dragPhi
           const curTheta = THETA + thetaOffset + dragTheta
           globe.update({ phi: curPhi, theta: curTheta })
+
+          if (first) { first = false; canvas.style.opacity = '1' }
 
           const size = canvas.offsetWidth
           MARKERS.forEach(m => {
@@ -1467,7 +1476,6 @@
           requestAnimationFrame(tick)
         }
         tick()
-        setTimeout(() => { canvas.style.opacity = '1' })
       }
 
       if (canvas.offsetWidth > 0) {
