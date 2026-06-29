@@ -871,38 +871,38 @@
     footer .foot-logo img { height: 108px; width: auto; display: block; }
 
     /* ── GLOBE ── */
-    .globe-section { background: var(--bg); }
-    .globe-container {
+    .hero-globe-wrap {
       position: relative;
-      width: min(520px, 90vw);
-      height: min(520px, 90vw);
-      margin: 3rem auto 0;
+      width: min(460px, 44vw);
+      height: min(460px, 44vw);
+      margin: 0 auto;
+      animation: fadeUp 0.7s ease 0.12s both;
     }
     #globe-canvas {
       width: 100%; height: 100%;
       display: block;
       cursor: grab;
       opacity: 0;
-      transition: opacity 1.2s ease;
+      transition: opacity 1.4s ease;
       border-radius: 50%;
       touch-action: none;
     }
     .g-label {
       position: absolute;
-      padding: 0.3rem 0.65rem;
+      padding: 0.3rem 0.7rem;
       color: #fff;
       font-family: 'Poppins', sans-serif;
-      font-size: 0.8rem;
+      font-size: 0.75rem;
       font-weight: 700;
-      letter-spacing: 0.01em;
+      letter-spacing: 0.02em;
       white-space: nowrap;
       border-radius: 4px;
       pointer-events: none;
       overflow: hidden;
       opacity: 0;
-      box-shadow: 0 1px 4px rgba(0,0,0,0.2), 0 2px 8px rgba(0,0,0,0.1), inset 0 -1px 0 rgba(0,0,0,0.12);
-      text-shadow: 0 1px 1px rgba(0,0,0,0.25);
-      transition: opacity 0.3s, filter 0.3s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.3), 0 2px 10px rgba(0,0,0,0.2), inset 0 -1px 0 rgba(0,0,0,0.15);
+      text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+      transition: opacity 0.35s, filter 0.35s;
     }
     .g-label-shine {
       position: absolute;
@@ -910,9 +910,6 @@
       background: linear-gradient(180deg, rgba(255,255,255,0.35) 0%, rgba(255,255,255,0.1) 60%, transparent 100%);
       border-radius: 4px 4px 50% 50%;
       pointer-events: none;
-    }
-    @media (max-width: 600px) {
-      .g-label { font-size: 0.68rem; padding: 0.2rem 0.5rem; }
     }
 
     /* ── ANIMATIONS ── */
@@ -934,9 +931,7 @@
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .hero-inner { grid-template-columns: 1fr; gap: 2rem; }
-      .hero-photo-wrap { max-width: 380px; margin: 0 auto; overflow: hidden; }
-      .float-card-tl { display: none; }
-      .float-card-br { display: none; }
+      .hero-globe-wrap { width: min(360px, 80vw); height: min(360px, 80vw); }
       .about-grid { grid-template-columns: 1fr; }
       .about-photos { max-width: 380px; margin: 0 auto; overflow: hidden; }
       .about-photo-accent { display: none; }
@@ -952,9 +947,9 @@
       .hero { align-items: flex-start; min-height: unset; padding: 0; }
       .hero-inner { padding: 0 1.25rem 1.5rem; gap: 0.75rem; }
       .hero-logo { height: 140px; margin-bottom: 0.5rem; }
-      .hero-photo-frame { aspect-ratio: auto; height: 320px; }
-      .hero-photo-wrap { max-width: 100%; }
+      .hero-globe-wrap { width: min(280px, 80vw); height: min(280px, 80vw); }
       .hero-inner > div:first-child { text-align: center; }
+      .g-label { font-size: 0.65rem; padding: 0.2rem 0.5rem; }
       .hero-headline { font-size: clamp(1.75rem, 7.5vw, 2.1rem); margin-bottom: 0.6rem; }
       .hero-sub { font-size: 0.9rem; margin-bottom: 1rem; max-width: 100%; margin-left: auto; margin-right: auto; }
       .hero-actions { flex-direction: column; align-items: center; }
@@ -1012,18 +1007,8 @@
         </div>
       </div>
 
-      <div class="hero-photo-wrap">
-        <div class="float-card float-card-tl">
-          <div class="float-icon float-icon-gold">✈️</div>
-          <div>
-            <div class="float-value">Paris 2025</div>
-            <div class="float-label">Apenas taxa de embarque</div>
-          </div>
-        </div>
-        <div class="hero-photo-frame">
-          <img src="img/lissa-paris.jpeg"
-               alt="Lissa em Paris" loading="eager"/>
-        </div>
+      <div id="globe-root" class="hero-globe-wrap">
+        <canvas id="globe-canvas"></canvas>
       </div>
     </div>
   </section>
@@ -1155,20 +1140,6 @@
           <div class="gallery-overlay"></div>
           <div class="gallery-label"><img class="gallery-flag" src="img/flag-espanha.jpg" alt="Espanha"/>Madrid</div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GLOBE -->
-  <section class="globe-section">
-    <div class="section-inner">
-      <div style="text-align:center;max-width:560px;margin:0 auto">
-        <div class="section-tag reveal" style="justify-content:center">Pelo mundo</div>
-        <h2 class="section-title reveal reveal-delay-1">Destinos onde já<br/>voei <span>com milhas</span></h2>
-        <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">Gire o globo e conheça os lugares que já visitei usando a mesma estratégia que aplico para os meus clientes.</p>
-      </div>
-      <div id="globe-root" class="globe-container reveal reveal-delay-3">
-        <canvas id="globe-canvas"></canvas>
       </div>
     </div>
   </section>
@@ -1394,12 +1365,12 @@
     import createGlobe from 'https://esm.sh/cobe'
 
     const MARKERS = [
-      { id: 'paris',   location: [48.86,   2.35], text: 'Paris',    color: '#B59459', rotate: -5 },
-      { id: 'roma',    location: [41.90,  12.49], text: 'Roma',     color: '#00204E', rotate:  4 },
-      { id: 'londre',  location: [51.51,  -0.13], text: 'Londres',  color: '#4e9a72', rotate: -3 },
-      { id: 'madrid',  location: [40.42,  -3.70], text: 'Madrid',   color: '#B59459', rotate:  5 },
-      { id: 'milao',   location: [45.46,   9.19], text: 'Milão',    color: '#00204E', rotate: -4 },
-      { id: 'curacao', location: [12.12, -68.93], text: 'Curaçao',  color: '#4e9a72', rotate:  6 },
+      { id: 'europa',  location: [54,  15],   text: 'Europa',          color: '#B59459', rotate: -3 },
+      { id: 'asia',    location: [34,  100],  text: 'Ásia',            color: '#4e9a72', rotate:  4 },
+      { id: 'namrica', location: [45, -100],  text: 'Am. do Norte',    color: '#d4b07a', rotate: -5 },
+      { id: 'samrica', location: [-15, -55],  text: 'Am. do Sul',      color: '#4e9a72', rotate:  3 },
+      { id: 'africa',  location: [5,   22],   text: 'África',          color: '#B59459', rotate: -4 },
+      { id: 'oceania', location: [-25, 135],  text: 'Oceania',         color: '#4e9a72', rotate:  5 },
     ]
 
     const canvas = document.getElementById('globe-canvas')
@@ -1441,13 +1412,13 @@
             devicePixelRatio: Math.min(window.devicePixelRatio || 1, 2),
             width: w, height: w,
             phi: 0, theta: THETA,
-            dark: 0, diffuse: 1.5,
-            mapSamples: 16000, mapBrightness: 9,
-            baseColor: [1, 1, 1],
+            dark: 1, diffuse: 1.2,
+            mapSamples: 16000, mapBrightness: 6,
+            baseColor: [0.08, 0.14, 0.28],
             markerColor: [0.71, 0.58, 0.35],
-            glowColor: [0.94, 0.93, 0.91],
+            glowColor: [0.0, 0.08, 0.25],
             markerElevation: 0,
-            markers: MARKERS.map(m => ({ location: m.location, size: 0.035 })),
+            markers: MARKERS.map(m => ({ location: m.location, size: 0.05 })),
           })
         } catch(e) {
           console.error('Globe init error:', e)
